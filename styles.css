@@ -1,0 +1,101 @@
+
+/* pagina log in start */
+#inicioPantalla{
+   display: block;
+
+   text-align: center;
+margin: 1%;
+padding: 1em;
+border: 1px black solid;
+
+
+   
+}
+.imagen{
+    width:3em;
+    height:2em;
+}
+.usuario{
+    padding-top: 1em;
+
+}
+
+.contraseña{
+    padding-top: 1em;
+}
+#iniciarSesion{
+    margin-top: 1em;
+    padding: 0.5em 0.3em 0.5em 0.3em;
+}
+/* pagina log in end */
+
+
+
+
+
+/* pagina de home start */
+.buscador{
+    margin: 1em;
+
+}
+
+.TodasCanciones ul{
+    list-style: none;
+
+}
+
+.butonesCancion{
+    display: inline-block;
+}
+.butonesCancion img{
+    width: 1em;
+    height: 1em;
+
+}
+/* listas start */
+.TodasCanciones{
+    margin: 1em;
+    border: 1px black solid;
+
+}
+
+.Favoritos{
+    margin: 1em;
+    border: 1px black solid;
+}
+.Playlist{
+    margin: 1em;
+    border: 1px black solid;
+}
+/* list end */
+
+body{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+/* grid  start*/
+/* reproductor start*/
+.albumImg{
+
+    margin: 2em;
+    width: 20em;
+
+
+}
+.play-boton{
+    width: 3em;
+}
+#botonesReproductor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+
+
+   
+}
+/* reproductor end*/
+
+/* grid end */
+/* pagina de home end */

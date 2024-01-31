@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+   
+<div id="sideBar">
+    <div class="buscador">
+        <label for="">Buscador</label>
+        <input type="text" id="buscardor" placeholder="Buscar Cancion">
+        <button class="botonBuscar">Buscar</button>
+    </div>
+    <div class="TodasCanciones">
+        <h3>Canciones</h3>
+        <!-- descargar 3 canciones para probar  -->
+        <ul>
+            <li>
+                cancion1
+                <div class="butonesCancion">
+                    <button id="play"><img src="./asset/play-solid.svg" alt="play"></button>
+
+                    <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon"></button>
+
+                    <button id="plus"><img src="./asset/plus-solid.svg" alt="plus"></button>
+                </div>
+            </li>
+            <li>cancion2
+                <div class="butonesCancion">
+                    <button class="play"><img src="./asset/play-solid.svg" alt="play"></button>
+                    
+                    <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon"></button>
+
+                    <button id="plus"><img src="./asset/plus-solid.svg" alt="plus"></button>
+                </div>
+            </li>
+            <li>cancion3
+                <div class="butonesCancion">
+                    <button class="play"><img src="./asset/play-solid.svg" alt="play"></button>
+                    
+                    <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon"></button>
+
+                    <button id="plus"><img src="./asset/plus-solid.svg" alt="plus"></button>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="Playlist">
+        <h3>Mi Playlist</h3>
+        <!-- descargar 3 canciones para probar  -->
+        <ul>
+            <li>
+                cancion1
+                <div class="butonesCancion">
+                    <button id="play"><img src="./asset/play-solid.svg" alt="play"></button>
+
+                    <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon"></button>
+
+                    <button id="trash"><img src="./asset/trash-solid.svg" alt="trash"></button>
+                </div>
+            </li>
+            <li>cancion2
+                <div class="butonesCancion">
+                    <button id="play"><img src="./asset/play-solid.svg" alt="play"></button>
+                    
+                    <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon"></button>
+
+                    <button id="trash"><img src="./asset/trash-solid.svg" alt="trash"></button>
+                </div>
+            </li>
+            <li>cancion3
+                <div class="butonesCancion">
+                    <button id="play"><img src="./asset/play-solid.svg" alt="play"></button>
+                    
+                    <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon"></button>
+
+                    <button id="trash"><img src="./asset/trash-solid.svg" alt="trash"></button>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="Favoritos">
+        <h3>Mis Favoritos</h3>
+        <!-- descargar 3 canciones para probar  -->
+        <ul>
+            <li>
+                cancion1
+                <div class="butonesCancion">
+                    <button id="play"><img src="./asset/play-solid.svg" alt="play"></button>
+
+                    <button id="heart"><img src="./asset/heart-regular.svg" alt="corazon"></button>
+
+                    <button id="plus"><img src="./asset/plus-solid.svg" alt="plus"></button>
+                </div>
+            </li>
+            <li>cancion2
+                <div class="butonesCancion">
+                    <button id="play"><img src="./asset/play-solid.svg" alt="play"></button>
+                    
+                    <button id="heart"><img src="./asset/heart-regular.svg" alt="corazon"></button>
+
+                    <button id="plus"><img src="./asset/plus-solid.svg" alt="plus"></button>
+                </div>
+            </li>
+            <li>cancion3
+                <div class="butonesCancion">
+                    <button id="play"><img src="./asset/play-solid.svg" alt="play"></button>
+                    
+                    <button id="heart"><img src="./asset/heart-regular.svg" alt="corazon"></button>
+
+                    <button id="plus"><img src="./asset/plus-solid.svg" alt="plus"></button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="Reproductor">
+    <img class="albumImg" src="./asset/album1.jpg" alt="album1">
+    <div class="infoCancion">
+        <p>Nombre:</p>
+        <p>Duración:</p>
+        <p>Album:</p>
+        <p>Año:</p>
+        <p>Género:</p>
+    </div>
+    <div id="botonesReproductor">
+
+        <button class="play-boton"><img src="./asset/backward-solid.svg" alt=""></button>
+
+        <button class="play-boton"><img src="./asset/play-solid.svg" alt="play"></button>
+       
+        <button class="play-boton"><img src="./asset/forward-solid.svg" alt=""></button>
+
+        <button class="play-boton"><img src="./asset/stop-solid.svg" alt=""></button>
+
+        <button class="play-boton"><img src="./asset/volume-xmark-solid.svg" alt=""></button>
+
+    </div>
+
+
+
+</div>
+
+
+    <script defer src="./main.js">  </script>
+</body>
+
+</html>
