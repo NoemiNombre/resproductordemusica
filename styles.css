@@ -12,8 +12,7 @@ border: 1px black solid;
    
 }
 .imagen{
-    width:3em;
-    height:2em;
+    width:13em
 }
 .usuario{
     padding-top: 1em;
@@ -25,7 +24,9 @@ border: 1px black solid;
 }
 #iniciarSesion{
     margin-top: 1em;
-    padding: 0.5em 0.3em 0.5em 0.3em;
+    padding: 0.7em 0.5em 0.7em 0.5em;
+    background: none;
+    border-radius: 5em;
 }
 /* pagina log in end */
 
@@ -34,26 +35,38 @@ border: 1px black solid;
 
 
 /* pagina de home start */
+h3{
+    padding-left:1em  ;
+}
+#sideBar ul{
+    list-style: none;
+
+}
 .buscador{
     margin: 1em;
 
 }
 
-.TodasCanciones ul{
-    list-style: none;
-
+.botonBuscar{
+    background: none;
+    border-radius: 5em; 
 }
 
 .butonesCancion{
     display: inline-block;
+    
 }
 .butonesCancion img{
     width: 1em;
     height: 1em;
+    
 
 }
 /* listas start */
 .TodasCanciones{
+    width: auto;
+    height: 10em;
+    overflow-y: scroll;
     margin: 1em;
     border: 1px black solid;
 
@@ -67,24 +80,53 @@ border: 1px black solid;
     margin: 1em;
     border: 1px black solid;
 }
+
+
+#play{
+    background: none;
+    border: none;
+}
+#heart-solid{
+    background: none;
+    border: none;
+}
+#plus{
+    background: none;
+    border: none;
+}
+#trash{
+    background: none;
+    border: none;
+}
+#heart{
+    background: none;
+    border: none;
+}
 /* list end */
 
 body{
     display: grid;
     grid-template-columns: 1fr 1fr;
+    
 }
 
 /* grid  start*/
 /* reproductor start*/
+p{
+    padding-left: 1em;
+}
 .albumImg{
 
-    margin: 2em;
+    margin: 10% 20%;
     width: 20em;
+    display: block;
 
 
 }
 .play-boton{
     width: 3em;
+    background: none;
+    border: none;
 }
 #botonesReproductor{
     display: flex;
