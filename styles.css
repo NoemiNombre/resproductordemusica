@@ -1,143 +1,274 @@
+ /* font import*/
+ @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display&family=Lato&family=Quicksand:wght@300&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+ /* root */
 
-/* pagina log in start */
-#inicioPantalla{
-   display: block;
-
-   text-align: center;
-margin: 1%;
-padding: 1em;
-border: 1px black solid;
-
-
-   
-}
-.imagen{
-    width:13em
-}
-.usuario{
-    padding-top: 1em;
-
-}
-
-.contraseña{
-    padding-top: 1em;
-}
-#iniciarSesion{
-    margin-top: 1em;
-    padding: 0.7em 0.5em 0.7em 0.5em;
-    background: none;
-    border-radius: 5em;
-}
-/* pagina log in end */
+ * {
+     font-family: 'DM Sans';
+     background-color: rgb(233, 233, 248);
+ }
 
 
 
+ /* pagina log in start */
+ #inicioPantalla {
+     display: block;
+
+     text-align: center;
+     margin: 1%;
+     padding: 1em;
+     border: 1px black solid;
+     border-radius: 10%;
 
 
-/* pagina de home start */
-h3{
-    padding-left:1em  ;
-}
-#sideBar ul{
-    list-style: none;
 
-}
-.buscador{
-    margin: 1em;
+ }
 
-}
+ .imagen {
+     width: 13em;
+     border-radius: 50%;
+ }
 
-.botonBuscar{
-    background: none;
-    border-radius: 5em; 
-}
+ .usuario {
+     padding-top: 1em;
 
-.butonesCancion{
-    display: inline-block;
-    
-}
-.butonesCancion img{
-    width: 1em;
-    height: 1em;
-    
+ }
 
-}
-/* listas start */
-.TodasCanciones{
-    width: auto;
-    height: 10em;
-    overflow-y: scroll;
-    margin: 1em;
-    border: 1px black solid;
+ .contraseña {
+     padding-top: 1em;
+ }
 
-}
+ #boton-iniciarSesion {
 
-.Favoritos{
-    margin: 1em;
-    border: 1px black solid;
-}
-.Playlist{
-    margin: 1em;
-    border: 1px black solid;
-}
+     margin-top: 1em;
+     padding: 0.7em 0.5em 0.7em 0.5em;
+     background: none;
+     border-radius: 5em;
+
+ }
+
+ #username {
+     border-radius: 1.5em;
+     padding: 0.2em 0.5em;
+ }
+
+ #contraseña {
+     border-radius: 1.5em;
+     padding: 0.2em 0.5em;
+ }
+
+ /* pagina log in end */
 
 
-#play{
-    background: none;
-    border: none;
-}
-#heart-solid{
-    background: none;
-    border: none;
-}
-#plus{
-    background: none;
-    border: none;
-}
-#trash{
-    background: none;
-    border: none;
-}
-#heart{
-    background: none;
-    border: none;
-}
-/* list end */
-
-body{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    
-}
-
-/* grid  start*/
-/* reproductor start*/
-p{
-    padding-left: 1em;
-}
-#albumImg{
-
-    margin: 10% 20%;
-    width: 20em;
-    display: block;
 
 
-}
-.play-boton{
-    width: 3em;
-    background: none;
-    border: none;
-}
-#botonesReproductor{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5em;
+
+ /* pagina de home start */
+ #Login {
+     display: flex;
+     justify-content: flex-end;
+     margin-top: 1em;
+     margin-right: 1em;
+
+ }
+
+ .user-icon {
+     width: 1.2em;
+
+ }
+
+ /* start canciones */
+ .portada-cancion {
+
+     height: 2.5em;
+     margin-right: 0.5em;
+     margin-bottom: 0.5em;
+
+     border-radius: 50%;
+
+ }
+
+ .busquedacanciones {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     text-wrap: wrap;
+     gap: 0.5em;
+     padding-right: 0.5em;
+
+ }
+
+ .cancion {
+     text-align: center;
+ }
+
+ /* end canciones */
 
 
-   
-}
-/* reproductor end*/
+ /*  */
+ h3 {
+     padding-left: 1em;
+ }
 
-/* grid end */
-/* pagina de home end */
+ #sideBar {
+     justify-self: end;
+ }
+
+ /* start buscador */
+ .buscador {
+     margin: 1em 1.5em;
+ }
+
+ #input-buscardor {
+     padding: 0.2em 0.5em;
+     border-radius: 1em;
+
+
+ }
+
+ #botonBuscar {
+     background: none;
+     border-radius: 2em;
+
+     cursor: pointer;
+ }
+
+ /* end buscador */
+
+
+ /* botones de canciones */
+ .butonesCancion {
+     display: block;
+     text-wrap: nowrap;
+
+ }
+
+ .butonesCancion img {
+     width: 1em;
+     height: 1em;
+
+ }
+
+ .butonesCancion button {
+     background: none;
+     border: none;
+     cursor: pointer;
+ }
+
+
+ /* listas start */
+ .TodasCanciones {
+     width: 21em;
+     height: 14em;
+
+     overflow-y: scroll;
+     margin: 1em;
+     border: 1px black solid;
+     border-radius: 10%;
+
+ }
+
+ .Favoritos {
+     margin: 1em;
+     border: 1px black solid;
+     overflow-y: scroll;
+     border-radius: 10%;
+
+     height: 14em;
+     width: 23em;
+ }
+
+ .Playlist {
+     margin: 1em;
+     border: 1px black solid;
+     overflow-y: scroll;
+     border-radius: 10%;
+
+     height: 14em;
+     width: 23em;
+
+
+ }
+
+ /* start conteiners */
+ #TodaslasCanciones {
+     padding-left: 1.7em;
+
+
+ }
+
+ #playlistConteiner {
+     padding-left: 1.7em;
+ }
+
+ #favoritesConteiner {
+     padding-left: 1.7em;
+ }
+
+ /* end conteiners */
+
+
+ /* list end */
+
+ body {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     gap: 1em;
+
+
+
+
+ }
+
+ /* grid  start*/
+ /* reproductor start*/
+ #rigthside {
+     justify-self: start;
+
+ }
+
+ #conteiner-Reproductor {
+     margin-top: 1em;
+     margin-bottom: 3em;
+
+     border: 1px solid black;
+     border-radius: 10%;
+     padding: 0.5em 1.5em;
+
+
+ }
+
+ .infoCancion {
+     margin-bottom: 1.5em;
+     margin-top: 1.5em;
+
+ }
+
+ #albumImg {
+
+     margin: 3em 1em;
+     width: 20em;
+     border-radius: 50%;
+     display: block;
+
+
+ }
+
+ .play-boton {
+     width: 3em;
+     background: none;
+     border: none;
+     cursor: pointer;
+ }
+
+ #botonesReproductor {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 0.5em;
+
+ }
+
+ /* reproductor end*/
+
+ /* grid end */
+ /* pagina de home end */
