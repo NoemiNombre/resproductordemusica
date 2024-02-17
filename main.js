@@ -406,6 +406,7 @@ class Playlists {
     this.nombrePlaylist = nombrePlaylist;
     this.cancionEnLista = cancionEnLista;
     this.conteiner = conteiner;
+    
   }
 
   renderList() {
@@ -421,14 +422,23 @@ class Playlists {
         </div>
        
         <div class="butonesCancion">
-            <button id="play"><img src="./asset/play-solid.svg" alt="play" onClick="audio.play()") data-playSong="botonsitoPlay"></button>
+            <button id="play"><img src="./asset/play-solid.svg" alt="play" onClick="audio.play()" ></button>
 
             <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon" onClick="favoritos.addCancion(todasLasCanciones[0])"></button>
 
             <button id="plus"><img src="./asset/plus-solid.svg" alt="plus"  onClick="playlist1.addCancion(todasLasCanciones[0])"></button>
         </div>
-    </div>`
+        </div>`
       );
+    let playsong = document.getElementsByClassName("play-boton");
+    for (let i = 0; i < playsong.length; i++) {
+      playsong[i].addEventListener("click", () => {
+        let id = playsong[i].parentElement.getAttribute("data-Song");
+        this.currentSong = todasLasCanciones.find((song) => song.id == id);
+        this.play();
+      });
+    }
+    
   }
 
   searchSong(query) {
@@ -495,11 +505,11 @@ class Playlists {
 // reproductor
 class Reproductor {
   constructor() {
-    //    this.currentSong = this.todasLasCanciones[0];
-
-    this.audio = new Audio("./asset/AUDIOS/Audio2.mp3");
+    this.currentSong = todasLasCanciones[0];
+    this.audio = new Audio("./asset/AUDIOS/Audio6.mp3");
 
     this.iniciarBotones();
+    
   }
 
   iniciarBotones = function () {
@@ -508,10 +518,11 @@ class Reproductor {
 
     play.addEventListener("click", () => {
       this.audio.play();
+      console.log(this.cancion);
     });
 
     this.audio.addEventListener("ended", () => {
-      this.audio.src = "./asset/AUDIOS/Audio2.mp3";
+      this.audio.src = "./asset/AUDIOS/";
       // usar id
 
       this.audio.play();
@@ -522,47 +533,53 @@ class Reproductor {
     pause.addEventListener("click", () => {
       this.audio.pause();
     });
+
+    // mute
+
+    const mute = document.getElementById("mute-button");
+
+    mute.addEventListener("click", () => {
+      this.audio.muted = true;
+    });
+    // volumen
+    const volume = document.getElementById("volume-button");
+    volume.addEventListener("click", () => {
+      this.audio.muted = false;
+    });
   };
+
   playChiqui = function () {
-    let playCanciones = document.getElementById("play-boton");
+    let playCanciones = document.getElementsByClassName("play-little");
     for (let i = 0; i < playCanciones.length; i++) {
       playCanciones[i].addEventListener("click", () => {
-        let id = playCanciones[i].getAttribute("data-playSong");
+        let id = playCanciones[i].parentElement.getAttribute("data-Song");
+        this.currentSong = todasLasCanciones.find((song) => song.id == id);
       });
+      let evento = new CustomEvent('butonesCancion', {
+        detail:{song: currentSong},
+      })
+      document.dispatchEvent(evento)
+    }
+  };
+  playGeneral = function () {
+    if (this.currentSong !== undefined) {
+      this.audio.src = "./asset/AUDIOS/" + this.currentSong.urlCan;
+      this.audio.play();
+    } else {
+      this.audio.play();
     }
   };
 }
 
-const mute = document.getElementById("mute-button");
-const volume = document.getElementById("volume-button");
-
-mute.addEventListener("click", () => {
-  audio.muted = true;
-});
-
-volume.addEventListener("click", () => {
-  audio.muted = false;
-});
-
-// botones de canciones en todaslas canciones
-const playLittle = document.getElementById("play-little");
-
-playLittle.addEventListener("click", () => {
-  // usar id
-  audio.play();
-});
-
-// botones siguiente y back de audio
+// botones siguiente y back de audioxs
 const siguiente = document.getElementById("foward-button");
+
 const atras = document.getElementById("back-button");
+atras.addEventListener("click", () => {});
 
 // ID DE CANCION
 
-atras.addEventListener("click", () => {});
-
 // iniciacion de variables de conteiners RIGTH-side
-
-function cambioCurrentSong(id) {}
 
 const reproductorConteiner = document.getElementById("cancion-Reproductor");
 reproductorConteiner.innerHTML = ` 
@@ -574,6 +591,7 @@ reproductorConteiner.innerHTML = `
                     <p>Año: ${todasLasCanciones[0].anio}</p>
                     <p>Género: ${todasLasCanciones[0].genero}</p>
                 </div>
+                
 `;
 
 // creacion de reproductor
@@ -593,6 +611,8 @@ const favoritos = new Playlists({
   nombrePlaylist: "Favoritos",
   conteiner: favoritesConteinerList,
 });
+
+
 
 // llamado a metodos con las variables que cree arrib
 
