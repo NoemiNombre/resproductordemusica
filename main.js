@@ -413,7 +413,7 @@ class Playlists {
     if (this.cancionEnLista === 0) this.conteiner.innerHTML = ``;
     else
       this.conteiner.innerHTML = this.cancionEnLista.map(
-        (song) => `
+        (song,index) => `
         <div class="busquedacanciones">
         <img class= "portada-cancion" src=${song.caratula} alt="portada-canciones">
         <div class="cancion"> 
@@ -422,11 +422,11 @@ class Playlists {
         </div>
        
         <div class="butonesCancion">
-            <button id="play"><img src="./asset/play-solid.svg" alt="play" onClick="audio.play()" ></button>
+            <button id="${index+1}"><img src="./asset/play-solid.svg" alt="play" onClick="reproductor.updateContainer(${index})" ></button>
 
-            <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon" onClick="favoritos.addCancion(todasLasCanciones[0])"></button>
+            <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon" onClick="favoritos.addCancion(todasLasCanciones[${index}])"></button>
 
-            <button id="plus"><img src="./asset/plus-solid.svg" alt="plus"  onClick="playlist1.addCancion(todasLasCanciones[0])"></button>
+            <button id="plus"><img src="./asset/plus-solid.svg" alt="plus"  onClick="playlist1.addCancion(todasLasCanciones[${index}])"></button>
         </div>
         </div>`
       );
@@ -504,14 +504,33 @@ class Playlists {
 
 // reproductor
 class Reproductor {
-  constructor() {
-    this.currentSong = todasLasCanciones[0];
-    this.audio = new Audio("./asset/AUDIOS/Audio6.mp3");
+  constructor(id) {
+    this.currentSong = todasLasCanciones[id];
+    // this.audio = new Audio(todasLasCanciones[2].urlCan);
+    this.audio = new Audio(todasLasCanciones[id].urlCan);
 
     this.iniciarBotones();
     
   }
+  // Method to update the reproductorConteiner inner HTML
+  updateContainer(id) {
+    this.audio.pause();
 
+    this.currentSong = todasLasCanciones[id];
+    this.audio = new Audio(todasLasCanciones[id].urlCan);
+    const reproductorConteiner = document.getElementById("cancion-Reproductor");
+    reproductorConteiner.innerHTML = `
+      <img id="albumImg" src="${this.currentSong.caratula}" alt="album1">
+      <div class="infoCancion">
+          <p>Nombre: ${this.currentSong.nombre}</p>
+          <p>Duración: ${this.currentSong.duracion}</p>
+          <p>Album: ${this.currentSong.album}</p>
+          <p>Año: ${this.currentSong.anio}</p>
+          <p>Género: ${this.currentSong.genero}</p>
+      </div>
+    `;
+    this.audio.play();
+  }
   iniciarBotones = function () {
     // play
     let play = document.getElementById("play-button");
@@ -582,20 +601,23 @@ atras.addEventListener("click", () => {});
 // iniciacion de variables de conteiners RIGTH-side
 
 const reproductorConteiner = document.getElementById("cancion-Reproductor");
+
+// creacion de reproductor
+let reproductor = new Reproductor(1);
+
 reproductorConteiner.innerHTML = ` 
-<img id="albumImg" src="${todasLasCanciones[0].caratula}" alt="album1">
+<img id="albumImg" src="${reproductor.currentSong.caratula}" alt="album1">
                 <div class="infoCancion">
-                    <p>Nombre: ${todasLasCanciones[0].nombre}</p>
-                    <p>Duración: ${todasLasCanciones[0].duracion}</p>
-                    <p>Album: ${todasLasCanciones[0].album}</p>
-                    <p>Año: ${todasLasCanciones[0].anio}</p>
-                    <p>Género: ${todasLasCanciones[0].genero}</p>
+                    <p>Nombre: ${reproductor.currentSong.nombre}</p>
+                    <p>Duración: ${reproductor.currentSong.duracion}</p>
+                    <p>Album: ${reproductor.currentSong.album}</p>
+                    <p>Año: ${reproductor.currentSong.anio}</p>
+                    <p>Género: ${reproductor.currentSong.genero}</p>
                 </div>
                 
 `;
 
-// creacion de reproductor
-let reproductor = new Reproductor();
+
 
 // creacion de variables para citar a clases
 const allSongs = new Playlists({
