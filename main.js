@@ -403,6 +403,7 @@ const todasLasCanciones = [
 // playlists
 class Playlists {
     constructor({ nombrePlaylist, cancionEnLista = [], conteiner }) {
+        this.currentIndex = 0
         this.nombrePlaylist = nombrePlaylist;
         this.cancionEnLista = cancionEnLista;
         this.conteiner = conteiner;
@@ -506,6 +507,7 @@ class Playlists {
 // reproductor
 class Reproductor {
     constructor(id) {
+        this.currentIndex= id
         this.currentSong = todasLasCanciones[id];
         // this.audio = new Audio(todasLasCanciones[2].urlCan);
         this.audio = new Audio(todasLasCanciones[id].urlCan);
@@ -570,20 +572,20 @@ class Reproductor {
         // siguiente
         const siguiente = document.getElementById("foward-button");
         siguiente.addEventListener('click', () => {
-            let index = 0
+            
            
 
-            if (!this.currentSong) {
-                this.currentSong = todasLasCanciones[index].urlCan;
+            if (!this.currentIndex) {
+                this.currentIndex = todasLasCanciones[this.currentIndex].urlCan;
                 this.audio.play();
             } else {
-                if (index === todasLasCanciones.length -1 ) {
-                    index = 1
+                if (this.currentIndex === todasLasCanciones.length -1 ) {
+                    this.currentIndex = 0
                 } 
                 else {
-                    index++
+                    this.currentIndex++
                 }
-                this.audio.src = todasLasCanciones[index].urlCan;
+                this.audio.src = todasLasCanciones[this.currentIndex].urlCan;
                 this.audio.play();
             }
         })
@@ -591,18 +593,18 @@ class Reproductor {
         // previous
         const atras = document.getElementById("back-button");
         atras.addEventListener("click", () => {
-            let index = 0
+            
 
-            if (!this.currentSong) {
-                this.currentSong = todasLasCanciones[index].urlCan;
+            if (!this.currentIndex) {
+                this.currentIndex = todasLasCanciones[this.currentIndex].urlCan;
                 this.audio.play();
             } else {
-                if (index === 0) {
-                    index = 0; 
+                if (this.currentIndex == 0) {
+                    this.currentIndex = 0; 
                 } else {
-                    index--
+                    this.currentIndex--
                 }
-                this.audio.src = todasLasCanciones[index].urlCan;
+                this.audio.src = todasLasCanciones[this.currentIndex].urlCan;
                 this.audio.play();
             }
 
@@ -618,7 +620,7 @@ class Reproductor {
                 this.currentSong = todasLasCanciones.find((song) => song.id == id);
             });
             let evento = new CustomEvent('butonesCancion', {
-                detail: { song: currentSong },
+                detail: { song: currentSong, index: currentIndex},
             })
             document.dispatchEvent(evento)
         }
