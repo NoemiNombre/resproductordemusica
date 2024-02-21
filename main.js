@@ -407,6 +407,8 @@ class Playlists {
         this.nombrePlaylist = nombrePlaylist;
         this.cancionEnLista = cancionEnLista;
         this.conteiner = conteiner;
+       
+
 
     }
 
@@ -423,7 +425,7 @@ class Playlists {
         </div>
        
         <div class="butonesCancion">
-            <button id="${index + 1}"><img src="./asset/play-solid.svg" alt="play" onClick="reproductor.updateContainer(${index})" ></button>
+            <button id="${index +1}"><img src="./asset/play-solid.svg" alt="play" onClick="reproductor.updateContainer(${index})" ></button>
 
             <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon" onClick="favoritos.addCancion(todasLasCanciones[${index}])"></button>
 
@@ -437,7 +439,7 @@ class Playlists {
             playsong[i].addEventListener("click", () => {
                 let id = playsong[i].parentElement.getAttribute("data-Song");
                 this.currentSong = todasLasCanciones.find((song) => song.id == id);
-                // this.audio.play();
+                
             });
         }
 
@@ -502,6 +504,9 @@ class Playlists {
             (song) => song !== cancion
         );
     }
+
+
+    
 }
 
 // reproductor
@@ -540,13 +545,12 @@ class Reproductor {
 
         play.addEventListener("click", () => {
             this.audio.play();
-            console.log(this.cancion);
+            
         });
 
         this.audio.addEventListener("ended", () => {
             this.audio.src = "./asset/AUDIOS/";
-            // usar id
-
+        
             this.audio.play();
         });
         // pause
@@ -572,59 +576,39 @@ class Reproductor {
         // siguiente
         const siguiente = document.getElementById("foward-button");
         siguiente.addEventListener('click', () => {
-            
+            console.log(this.currentIndex);
+            // debugger
            
 
-            if (!this.currentIndex) {
-                this.currentIndex = todasLasCanciones[this.currentIndex].urlCan;
-                this.audio.play();
-            } else {
-                if (this.currentIndex === todasLasCanciones.length -1 ) {
+                if (this.currentIndex === todasLasCanciones.length -1) {
+                   this.updateContainer(this.currentIndex +1);
                     this.currentIndex = 0
                 } 
                 else {
+                    this.updateContainer(this.currentIndex +1);
                     this.currentIndex++
                 }
-                this.audio.src = todasLasCanciones[this.currentIndex].urlCan;
-                this.audio.play();
-            }
+               
         })
 
         // previous
         const atras = document.getElementById("back-button");
         atras.addEventListener("click", () => {
             
-
-            if (!this.currentIndex) {
-                this.currentIndex = todasLasCanciones[this.currentIndex].urlCan;
-                this.audio.play();
-            } else {
-                if (this.currentIndex == 0) {
-                    this.currentIndex = 0; 
-                } else {
-                    this.currentIndex--
-                }
-                this.audio.src = todasLasCanciones[this.currentIndex].urlCan;
-                this.audio.play();
-            }
-
+            
+                if (this.currentIndex === 0) {
+                    this.updateContainer(this.currentIndex -1);
+                     this.currentIndex = 0
+                 } 
+                 else {
+                     this.updateContainer(this.currentIndex -1);
+                     this.currentIndex--
+                 }
         });
 
     };
 
-    playChiqui = function () {
-        let playCanciones = document.getElementsByClassName("play-little");
-        for (let i = 0; i < playCanciones.length; i++) {
-            playCanciones[i].addEventListener("click", () => {
-                let id = playCanciones[i].parentElement.getAttribute("data-Song");
-                this.currentSong = todasLasCanciones.find((song) => song.id == id);
-            });
-            let evento = new CustomEvent('butonesCancion', {
-                detail: { song: currentSong, index: currentIndex},
-            })
-            document.dispatchEvent(evento)
-        }
-    };
+    
 
 }
 
@@ -661,7 +645,7 @@ class Reproductor {
 const reproductorConteiner = document.getElementById("cancion-Reproductor");
 
 // creacion de reproductor
-let reproductor = new Reproductor(1);
+let reproductor = new Reproductor(0);
 
 reproductorConteiner.innerHTML = ` 
 <img id="albumImg" src="${reproductor.currentSong.caratula}" alt="album1">
