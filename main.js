@@ -4,11 +4,21 @@
 //   }
 
 // iniciacion de variables de conteiners LEFT-side
+
+
+
+
+
 const songsConteinerList = document.getElementById("allSongsConteiner");
 const playlistConteinerList = document.getElementById("playlistConteiner");
 const favoritesConteinerList = document.getElementById("favoritesConteiner");
 
+
+
+
+
 // canciones
+
 class canciones {
     constructor(
         id,
@@ -20,8 +30,8 @@ class canciones {
         genero,
         caratula,
         urlCan,
-        isFavorite = false
-        // inplaylist = false
+        isFavorite = false,
+        inplaylist = false
     ) {
         this.id = id;
         this.nombre = nombre;
@@ -33,7 +43,7 @@ class canciones {
         this.caratula = caratula;
         this.urlCan = urlCan;
         this.isFavorite = isFavorite;
-        // this.inplaylist = inplaylist;
+        this.inplaylist = inplaylist;
     }
 
     getId() {
@@ -400,6 +410,7 @@ const todasLasCanciones = [
         "./asset/AUDIOS/Audio32.mp3"
     ),
 ];
+let listaActiva = 'Todos';
 // playlists
 class Playlists {
     constructor({ nombrePlaylist, cancionEnLista = [], conteiner }) {
@@ -407,7 +418,8 @@ class Playlists {
         this.nombrePlaylist = nombrePlaylist;
         this.cancionEnLista = cancionEnLista;
         this.conteiner = conteiner;
-       
+
+
 
 
     }
@@ -425,21 +437,36 @@ class Playlists {
         </div>
        
         <div class="butonesCancion">
-            <button id="${index +1}"><img src="./asset/play-solid.svg" alt="play" onClick="reproductor.updateContainer(${index})" ></button>
+            <button id="${index + 1}"><img src="./asset/play-solid.svg" alt="play" onClick="reproductor.updateContainer(${song.id},${song.isFavorite},${song.inplaylist})" ></button>
 
-            <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon" onClick="favoritos.addCancion(todasLasCanciones[${index}])"></button>
+            ${song.isFavorite ?
+                        ` <button id="heart-solid"><img src="./asset/heart-regular.svg" alt="corazon" onClick="favoritos.removeCancion(${index})"> </button>`
+                        :
+                        ` <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon" onClick="favoritos.addCancion(todasLasCanciones[${index}],'favoritos')"> </button>`}
+          
+           ${song.inplaylist ?
+                        `<button id="plus"><img src="./asset/trash-solid.svg" alt="plus"  onClick="playlist1.removeCancion(${index})"></button>`
+                        :
 
-            <button id="plus"><img src="./asset/plus-solid.svg" alt="plus"  onClick="playlist1.addCancion(todasLasCanciones[${index}])"></button>
+                        `<button id="plus"><img src="./asset/plus-solid.svg" alt="plus"  onClick="playlist1.addCancion(todasLasCanciones[${index}], 'playList')"></button>`
+            }
+
+
+           
+
+            
         </div>
         </div>`
             );
+
+
 
         let playsong = document.getElementsByClassName("play-boton");
         for (let i = 0; i < playsong.length; i++) {
             playsong[i].addEventListener("click", () => {
                 let id = playsong[i].parentElement.getAttribute("data-Song");
                 this.currentSong = todasLasCanciones.find((song) => song.id == id);
-                
+
             });
         }
 
@@ -472,7 +499,7 @@ class Playlists {
             this.conteiner.innerHTML = `No se encontraron canciones`;
         else
             songsConteinerList.innerHTML = filtroDeCaciones.map(
-                (song) => `
+                (song, index) => `
         <div class="busquedacanciones">
         <img class= "portada-cancion" src=${song.caratula} alt="portada-canciones">
         <div class="cancion"> 
@@ -481,38 +508,82 @@ class Playlists {
         </div>
                 
         <div class="butonesCancion">
+        <button id="${index + 1}"><img src="./asset/play-solid.svg" alt="play" onClick="reproductor.updateContainer(${song.id},${song.isFavorite},${song.inplaylist})" ></button>
+
+        ${song.isFavorite ?
+                    ` <button id="heart-solid"><img src="./asset/heart-regular.svg" alt="corazon" onClick="favoritos.removeCancion(${index})"> </button>`
+                    :
+                    ` <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon" onClick="favoritos.addCancion(todasLasCanciones[${index}],'favoritos')"> </button>`}
+      
+       ${song.inplaylist ?
+                    `<button id="plus"><img src="./asset/trash-solid.svg" alt="plus"  onClick="playlist1.removeCancion(${index})"></button>`
+                    :
+
+                    `<button id="plus"><img src="./asset/plus-solid.svg" alt="plus"  onClick="playlist1.addCancion(todasLasCanciones[${index}], 'playList')"></button>`
+        }
+
+
+       
+
         
-        <button id="play"><img src="./asset/play-solid.svg" alt="play" onClick="audio.play()")></button>
-
-
-            <button id="heart-solid"><img src="./asset/heart-solid.svg" alt="corazon" onClick="favoritos.addCancion(todasLasCanciones[0])"></button>
-
-            <button id="plus"><img src="./asset/plus-solid.svg" alt="plus"  onClick="playlist1.addCancion(todasLasCanciones[0])"></button>
-        </div>
+    </div>
     </div>
         `
             );
     }
 
-    addCancion(cancion) {
-        this.cancionEnLista.push(cancion);
+    addCancion(cancion, lista) {
+        if (!this.cancionEnLista.includes(cancion)) {
+            if (lista == 'favoritos') {
+                cancion.isFavorite = true
+
+            }
+
+            if (lista == 'playList') {
+                cancion.inplaylist = true
+            }
+            console.log(cancion)
+
+            this.cancionEnLista.push(cancion);
+            this.renderList();
+        }
+
+
+
+    }
+
+    removeCancion(index) {
+        //let index = this.cancionEnLista.indexOf(cancion)
+        console.log(index, this.cancionEnLista)
+        this.cancionEnLista.splice(index, 1)
         this.renderList();
-    }
 
-    removeCancion(cancion) {
-        this.cancionEnLista = this.cancionEnLista.filter(
-            (song) => song !== cancion
-        );
+ 
     }
 
 
-    
+
 }
+
+const allSongs = new Playlists({
+    nombrePlaylist: "Canciones",
+    cancionEnLista: todasLasCanciones,
+    conteiner: songsConteinerList,
+});
+const playlist1 = new Playlists({
+    nombrePlaylist: "Mi Playlist",
+    conteiner: playlistConteinerList,
+});
+const favoritos = new Playlists({
+    nombrePlaylist: "Favoritos",
+    conteiner: favoritesConteinerList,
+});
+
 
 // reproductor
 class Reproductor {
     constructor(id) {
-        this.currentIndex= id
+        this.currentIndex = id
         this.currentSong = todasLasCanciones[id];
         // this.audio = new Audio(todasLasCanciones[2].urlCan);
         this.audio = new Audio(todasLasCanciones[id].urlCan);
@@ -521,22 +592,73 @@ class Reproductor {
 
     }
     // Method to update the reproductorConteiner inner HTML
-    updateContainer(id) {
-        this.audio.pause();
+    updateContainer(id, isFavorite, inplaylist) {
 
-        this.currentSong = todasLasCanciones[id];
-        this.audio = new Audio(todasLasCanciones[id].urlCan);
+
+        this.audio.pause();
+        this.currentSong = '';
+        this.audio.src = '';
+
+
+
+        /*if (!song.isFavorite && ! song.inplaylist ) {
+            listaActiva = 'Todos'
+            this.currentSong = todasLasCanciones[id]
+            this.audio.src = todasLasCanciones[id].urlCan
+
+        } if (listaActiva == 'favoritos') {
+            this.currentSong = favoritos.cancionEnLista[id]
+            this.audio.src = favoritos.cancionEnLista[id].urlCan
+
+        } if (listaActiva == 'playList') {
+            this.currentSong = playlist1.cancionEnLista[id]
+            this.audio.src = playlist1.cancionEnLista[id].urlCan
+
+        }*/
+
+        let canciones = []
+
+        if (!isFavorite && !inplaylist) {
+            listaActiva = 'Todos'
+            canciones = todasLasCanciones
+
+        }
+        if (isFavorite) {
+            listaActiva = 'favoritos'
+            canciones = favoritos.cancionEnLista
+
+        }
+        if (inplaylist) {
+            listaActiva = 'playList'
+            canciones = playlist1.cancionEnLista
+
+        }
+
+        canciones.forEach(cancion => {
+            if (cancion.id == id) {
+                this.currentSong = cancion
+                this.audio.src = cancion.urlCan
+            }
+        })
+
+
+
         const reproductorConteiner = document.getElementById("cancion-Reproductor");
+
+
         reproductorConteiner.innerHTML = `
-      <img id="albumImg" src="${this.currentSong.caratula}" alt="album1">
-      <div class="infoCancion">
-          <p>Nombre: ${this.currentSong.nombre}</p>
-          <p>Duración: ${this.currentSong.duracion}</p>
-          <p>Album: ${this.currentSong.album}</p>
-          <p>Año: ${this.currentSong.anio}</p>
-          <p>Género: ${this.currentSong.genero}</p>
-      </div>
-    `;
+            <img id="albumImg" src="${this.currentSong.caratula}" alt="album1">
+            <div class="infoCancion">
+                <p>Nombre: ${this.currentSong.nombre}</p>
+                <p>Duración: ${this.currentSong.duracion}</p>
+                <p>Album: ${this.currentSong.album}</p>
+                <p>Año: ${this.currentSong.anio}</p>
+                <p>Género: ${this.currentSong.genero}</p>
+            </div>
+          `;
+
+
+
         this.audio.play();
     }
     iniciarBotones = function () {
@@ -545,12 +667,12 @@ class Reproductor {
 
         play.addEventListener("click", () => {
             this.audio.play();
-            
+
         });
 
         this.audio.addEventListener("ended", () => {
             this.audio.src = "./asset/AUDIOS/";
-        
+
             this.audio.play();
         });
         // pause
@@ -576,39 +698,74 @@ class Reproductor {
         // siguiente
         const siguiente = document.getElementById("foward-button");
         siguiente.addEventListener('click', () => {
-            console.log(this.currentIndex);
+            console.log(this.currentIndex, listaActiva);
             // debugger
-           
+            let canciones = []
+            if (listaActiva == 'favoritos') {
+                canciones = favoritos.cancionEnLista
 
-                if (this.currentIndex === todasLasCanciones.length -1) {
-                   this.updateContainer(this.currentIndex +1);
-                    this.currentIndex = 0
-                } 
-                else {
-                    this.updateContainer(this.currentIndex +1);
-                    this.currentIndex++
+            } else {
+                if (listaActiva == 'playList') {
+                    canciones = playlist1.cancionEnLista
+
+                } else {
+                    canciones = todasLasCanciones
                 }
-               
+            }
+
+            /*this.audio.addEventListener("ended", () => {
+            this.audio.src = "./asset/AUDIOS/";
+        
+            this.audio.play();
+        });*/
+
+
+
+            if (this.currentIndex === (canciones.length - 1)) {
+                let nextIndex = this.currentIndex + 1
+                this.updateContainer(canciones[nextIndex].id, canciones[nextIndex].isFavorite, canciones[nextIndex].inplaylist);
+                this.currentIndex = 0
+            }
+            else {
+                let nextIndex = this.currentIndex + 1
+                this.updateContainer(canciones[nextIndex].id, canciones[nextIndex].isFavorite, canciones[nextIndex].inplaylist);
+                this.currentIndex++
+            }
+
         })
 
         // previous
         const atras = document.getElementById("back-button");
         atras.addEventListener("click", () => {
-            
-            
-                if (this.currentIndex === 0) {
-                    this.updateContainer(this.currentIndex -1);
-                     this.currentIndex = 0
-                 } 
-                 else {
-                     this.updateContainer(this.currentIndex -1);
-                     this.currentIndex--
-                 }
+            let canciones = []
+            if (listaActiva == 'favoritos') {
+                canciones = favoritos.cancionEnLista
+
+            } else {
+                if (listaActiva == 'playList') {
+                    canciones = playlist1.cancionEnLista
+
+                } else {
+                    canciones = todasLasCanciones
+                }
+            }
+
+
+            if (this.currentIndex === 0) {
+                let prevIndex = this.currentIndex - 1
+                this.updateContainer(canciones[prevIndex].id, canciones[prevIndex].isFavorite, canciones[prevIndex].inplaylist);
+                this.currentIndex = 0
+            }
+            else {
+                let prevIndex = this.currentIndex - 1
+                this.updateContainer(canciones[prevIndex].id, canciones[prevIndex].isFavorite, canciones[prevIndex].inplaylist);
+                this.currentIndex--
+            }
         });
 
     };
 
-    
+
 
 }
 
@@ -660,29 +817,14 @@ reproductorConteiner.innerHTML = `
 `;
 
 
-
-// creacion de variables para citar a clases
-const allSongs = new Playlists({
-    nombrePlaylist: "Canciones",
-    cancionEnLista: todasLasCanciones,
-    conteiner: songsConteinerList,
-});
-const playlist1 = new Playlists({
-    nombrePlaylist: "Mi Playlist",
-    conteiner: playlistConteinerList,
-});
-const favoritos = new Playlists({
-    nombrePlaylist: "Favoritos",
-    conteiner: favoritesConteinerList,
-});
-
-
-
 // llamado a metodos con las variables que cree arrib
 
 allSongs.renderList();
 playlist1.renderList();
 favoritos.renderList();
+
+
+// creacion de variables para citar a clases
 
 // buscar por enter y boton
 const searchInput = document.getElementById("input-buscardor");
